@@ -168,7 +168,7 @@ class bloom_filter {
  */
 str_hash** construct_random_sfold_hashs(size_t k, std::vector<size_t> seeds) {
 
-    str_hash* v[k];
+    str_hash** v = new str_hash*[k];
 
     // Rather than run a choice funciton (which this library doesn't have), we
     // equivalently just shuffle all the elements of the vector and just take
@@ -202,13 +202,46 @@ std::vector<size_t> gen_primes(size_t n) {
     return p;
 }
 
-int main() {
+int main(int argc, char** argv) {
 
-    size_t k = 4;
-    size_t n = 1000;
+    if(argc < 3) {
+        std::cout << "Usage: bloomfilter [size] [#hashs]" << std::endl;
+        return 0;
+    }
+
+    size_t n = std::stoi(argv[1]);
+    size_t k = std::stoi(argv[2]);
 
     std::vector<size_t> primes = gen_primes(n);
     str_hash** hashers = construct_random_sfold_hashs(k, primes);
+    bloom_filter bf = bloom_filter(n, k, hashers);
+
+    std::cout << "Bloom filter has been constructed with " << n << " elements and " << k << " sfold hashs." << std::endl;
+    std::cout << "Commands: " << "insert str [insert string into the bloom filter]" << std::endl;
+    std::cout << "          " << "  test str [test if string is in bloom filter]" << std::endl;
+    std::cout << "          " << " reset     [reset all entries in bloom filter bit set]" << std::endl;
+    std::cout << "          " << "  exit     [exit the program]" << std::endl;
+
+    while(true) {
+
+        std::string command;
+        std::cin >> command;
+        if(command == "exit") break;
+        else if (command == "insert") {
+            std::cin >> command;
+            bf.insert(command);
+            std::cout << "\"" << command << "\" inserted." << std::endl;
+        }
+        else if (command == "test") {
+            std::cin >> command;
+            std::cout << (bf.test_membership(command) ? "true" : "false") << std::endl;
+        }
+        else if (command == "reset") {
+            bf.reset();
+            std::cout << "Bloom filter resetted." << std::endl;
+        }
+    
+    }
 
     return 0;
 }

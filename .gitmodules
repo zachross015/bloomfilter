@@ -1,0 +1,3 @@
+[submodule "extlib/random"]
+	path = extlib/random
+	url = https://github.com/effolkronium/random

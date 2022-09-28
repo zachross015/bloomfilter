@@ -1,28 +1,32 @@
 #include <string>
 #include <vector>
 #include <bitset>
+#include <iostream>
+//#include <effolkronium/random.hpp>
+
+//using random = effolkronium::random_static;
 
 template <typename T>
 class hash_function {
 
-    virtual long hash(T elem) = 0;
+    virtual size_t hash(T elem) = 0;
 
     public:
-    long operator()(T elem) { return hash(elem); };
+    size_t operator()(T elem) { return hash(elem); };
 
 };
 
 class sfold : public hash_function<std::string> {
 
-    int seed;
+    size_t seed;
 
-    virtual long hash(std::string elem) {
-        int size = elem.size() / 4;
-        long sum = 0;
-        for(int i = 0; i < size; i++) {
+    virtual size_t hash(std::string elem) {
+        size_t size = elem.size() / 4;
+        size_t sum = 0;
+        for(size_t i = 0; i < size; i++) {
             const char* c = elem.substr(i * 4, 4).c_str();
-            long mult = 1;
-            for(int j = 0; j < sizeof(c) / sizeof(char); j++) {
+            size_t mult = 1;
+            for(size_t j = 0; j < sizeof(c) / sizeof(char); j++) {
                 sum += c[j] * mult;
                 mult *= seed;
             }
@@ -32,53 +36,70 @@ class sfold : public hash_function<std::string> {
 
     public:
 
-    sfold(int seed) {
+    sfold(size_t seed) {
         this->seed = seed; 
     }
 
 };
 
-typedef s_vec std::vector<std::string>;
-typedef shash hash_function<std::string>;
-typedef shash_vec std::vector<s_hash>;
+typedef hash_function<std::string> str_hash;
 
 
-template <size_t N>
 class bloom_filter {
 
     private:
-        std::bitset<N> set;
-        shash_vec hashers;
+        std::vector<bool> set;
+        
+        str_hash** hashers;
+        size_t k;
 
 
     public:
         void insert(std::string str) {
-            for(auto hash : hashers) {
-                long i = hash(str) % N;
-                set[i] = 1;
+            for(size_t i = 0; i < k; i++) {
+                str_hash* hash = hashers[i];
+                size_t j = (*hash)(str) % set.size();
+                set[j] = 1;
             }
         }
 
         bool test_membership(std::string str) {
-            for(auto hash : hashers) {
-                long i = hash(str) % size;
-                if(!set.test(i)) {
+            for(size_t i = 0; i < k; i++) {
+                str_hash* hash = hashers[i];
+                size_t j = (*hash)(str) % set.size();
+                if(!set[j]) {
                     return false;
                 }
             }
             return true;
         }
 
-        void reset() { set.reset(); };
+        void reset() { std::fill(set.begin(), set.end(), 0); };
 
-        bloom_filter(shash_vec hashers) :  hashers(hashers) {};
+        bloom_filter(size_t size, size_t num_hashers, str_hash** hashers) {
+            for(size_t i = 0; i < size; i++) {
+                this->set.push_back(0);
+            }
+            this->k = num_hashers;
+            this->hashers = hashers;
+        };
+};
+
+
+str_hash** contruct_random_sfold_hashs(size_t k) {
+    str_hash* v[k];
+    for(size_t i = 0; i < k; i++) {
+        size_t seed = random::get(1, N);
+        v[i] = new sfold(seed);
+    }
+    return v;
 }
-
 
 int main() {
 
-    sfold hash(101);
-    std::cout << hash("aaaabbbb") << std::endl;
-    return 0;
+    size_t k = 4;
+    str_hash** hashers = construct_random_sfold_hashs(k);
+    bloom_filter filter(10, k, hashers);
 
+    return 0;
 }

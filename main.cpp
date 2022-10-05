@@ -2,6 +2,7 @@
 #include <vector>
 #include <bitset>
 #include <iostream>
+#include <memory>
 #include <effolkronium/random.hpp>
 
 
@@ -36,11 +37,12 @@ class hash_function {
 
 
 /// Short hand for hash functions involving a string
-typedef hash_function<std::string> str_hash;
+typedef hash_function<std::string> hash;
+typedef std::shared_ptr<hash> hash_ptr;
 
 
 /// Class implementation for the string folding hash function with a given seed.
-class sfold : public str_hash {
+class sfold : public hash {
 
     // The seed used for incrementing the multiplier in this hash.
     size_t seed;
@@ -87,11 +89,7 @@ class bloom_filter {
         
         // Array of hashers initialized at construction which are used for
         // storing and testing membership.
-        str_hash** hashers;
-
-
-        // Number of hashers in `hashers`.
-        size_t k;
+        std::vector<hash_ptr> hashers;
 
 
     public:
@@ -102,9 +100,8 @@ class bloom_filter {
          * \param str The string to insert into the bloom filter
          */
         void insert(std::string str) {
-            for(size_t i = 0; i < k; i++) {
-                str_hash* hash = hashers[i];
-                size_t j = (*hash)(str) % set.size();
+            for(hash_ptr h : this->hashers) {
+                size_t j = (*h)(str) % set.size();
                 set[j] = 1;
             }
         }
@@ -116,9 +113,8 @@ class bloom_filter {
          * \return     True if the string is in the set, false otherwise.
          */
         bool test_membership(std::string str) {
-            for(size_t i = 0; i < k; i++) {
-                str_hash* hash = hashers[i];
-                size_t j = (*hash)(str) % set.size();
+            for(hash_ptr h : this->hashers) {
+                size_t j = (*h)(str) % set.size();
                 if(!set[j]) {
                     return false;
                 }
@@ -139,22 +135,13 @@ class bloom_filter {
          *                    underlying base class is abstract. 
          *
          */
-        bloom_filter(size_t size, size_t num_hashers, str_hash** hashers) {
+        bloom_filter(size_t size, std::vector<hash_ptr>& hashers) {
             for(size_t i = 0; i < size; i++) {
                 this->set.push_back(0);
             }
-            this->k = num_hashers;
             this->hashers = hashers;
         };
 
-        /** Deconstructs the bloom filter. The array of hashers should be freed
-         * from memory seperately.
-         */
-        ~bloom_filter() {
-            for(size_t i = 0; i < this->k; i++) {
-                this->hashers[i] = 0;
-            }
-        }
 };
 
 
@@ -166,16 +153,16 @@ class bloom_filter {
  * \return      Array of pointers to sfold hashs. They are returned this way
  *              since the underlying class, hash_function, is abstract.
  */
-str_hash** construct_random_sfold_hashs(size_t k, std::vector<size_t> seeds) {
+std::vector<hash_ptr> construct_random_sfold_hashs(size_t k, std::vector<size_t> seeds) {
 
-    str_hash** v = new str_hash*[k];
+    std::vector<hash_ptr> v;
 
-    // Rather than run a choice funciton (which this library doesn't have), we
+    // Rather than run a choice function (which this library doesn't have), we
     // equivalently just shuffle all the elements of the vector and just take
     // the first k.
     rand_gen::shuffle(seeds);
     for(size_t i = 0; i < k; i++) {
-        v[i] = new sfold(seeds[i]);
+        v.push_back(hash_ptr(new sfold(seeds[i])));
     }
     return v;
 }
@@ -213,8 +200,8 @@ int main(int argc, char** argv) {
     size_t k = std::stoi(argv[2]);
 
     std::vector<size_t> primes = gen_primes(n);
-    str_hash** hashers = construct_random_sfold_hashs(k, primes);
-    bloom_filter bf = bloom_filter(n, k, hashers);
+    std::vector<hash_ptr> hashers = construct_random_sfold_hashs(k, primes);
+    bloom_filter bf = bloom_filter(n, hashers);
 
     std::cout << "Bloom filter has been constructed with " << n << " elements and " << k << " sfold hashs." << std::endl;
     std::cout << "Commands: " << "insert str [insert string into the bloom filter]" << std::endl;
@@ -227,18 +214,23 @@ int main(int argc, char** argv) {
         std::string command;
         std::cin >> command;
         if(command == "exit") break;
-        else if (command == "insert") {
-            std::cin >> command;
-            bf.insert(command);
-            std::cout << "\"" << command << "\" inserted." << std::endl;
-        }
-        else if (command == "test") {
-            std::cin >> command;
-            std::cout << (bf.test_membership(command) ? "true" : "false") << std::endl;
-        }
         else if (command == "reset") {
             bf.reset();
             std::cout << "Bloom filter resetted." << std::endl;
+        } else {
+
+            char buffer[256];
+            std::cin.get(buffer, 255);
+            std::string str(buffer + 1);
+
+            if (command == "insert") {
+                bf.insert(str);
+                std::cout << "\"" << str << "\" inserted." << std::endl;
+            }
+            else if (command == "test") {
+                std::cout << (bf.test_membership(str) ? "true" : "false") << std::endl;
+            }
+        
         }
     
     }

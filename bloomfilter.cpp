@@ -190,14 +190,37 @@ std::vector<size_t> gen_primes(size_t n) {
     return p;
 }
 
+/** Parses a command from a given command string by splitting by the first space
+ * and taking the first word.
+ *
+ * \param  input The input line containing the command.
+ * \return       The first word in the input line.
+ */
 std::string get_command(std::string input) {
     return input.substr(0, input.find(" "));
 }
 
+/** Parses the string part of a command string by removing the first word.
+ *
+ * \param  input The string to parse the input string from.
+ * \return       The string that was parsed.
+ *
+ */
 std::string get_string(std::string input) {
     return input.substr(input.find(" ") + 1, input.size());
 }
-
+ 
+/** Runs a series of commands from a given file on a bloom filter. 
+ *
+ * Accepts one of three commands in each line of the file:
+ *          reset     [resets the bloom filter]
+ *         insert str [inserts the string into the bloom filter]
+ * testmembership str [tests if the string is in the bloom filter]
+ *
+ * @param  path The path to the file containing the commands for the bloom
+ *              filter.
+ * @param  bf   The bloom filter.
+ */
 void run_commands(std::string path, bloom_filter& bf) {
     std::ifstream file;
     file.open(path);
@@ -231,10 +254,17 @@ int main(int argc, char** argv) {
         return 0;
     }
 
+    // Size of bloom filter
     size_t n = std::stoi(argv[1]);
+
+    // Number of hash functions
     size_t k = std::stoi(argv[2]);
+
+    // Path to the running commands
     std::string path = argv[3];
 
+    // Generate all the primes less than 10,000. This should suffice since k <=
+    // 16 in all our cases.
     std::vector<size_t> primes = gen_primes(10000);
     std::vector<hash_ptr> hashers = construct_random_sfold_hashs(k, primes);
     bloom_filter bf = bloom_filter(n, hashers);

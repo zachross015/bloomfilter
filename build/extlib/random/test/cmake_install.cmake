@@ -1,4 +1,4 @@
-# Install script for directory: /home/zachary/projects/bloomfilter/extlib/random/test
+# Install script for directory: /home/zachary/Documents/Projects/bloomfilter/extlib/random/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

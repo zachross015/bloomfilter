@@ -1,4 +1,4 @@
-# Install script for directory: /home/zachary/projects/bloomfilter
+# Install script for directory: /home/zachary/Documents/Projects/bloomfilter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/zachary/projects/bloomfilter/build/extlib/cmake_install.cmake")
+  include("/home/zachary/Documents/Projects/bloomfilter/build/extlib/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/zachary/projects/bloomfilter/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/zachary/Documents/Projects/bloomfilter/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

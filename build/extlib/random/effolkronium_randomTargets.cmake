@@ -49,7 +49,7 @@ unset(_expectedTargets)
 add_library(effolkronium_random INTERFACE IMPORTED)
 
 set_target_properties(effolkronium_random PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "/home/zachary/projects/bloomfilter/extlib/random/include"
+  INTERFACE_INCLUDE_DIRECTORIES "/home/zachary/Documents/Projects/bloomfilter/extlib/random/include"
 )
 
 # This file does not depend on other imported targets which have

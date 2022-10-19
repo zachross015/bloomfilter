@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/zachary/projects/bloomfilter
+CMAKE_SOURCE_DIR = /home/zachary/Documents/Projects/bloomfilter
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/zachary/projects/bloomfilter/build
+CMAKE_BINARY_DIR = /home/zachary/Documents/Projects/bloomfilter/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,14 +126,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/zachary/projects/bloomfilter/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/zachary/projects/bloomfilter/build/CMakeFiles /home/zachary/projects/bloomfilter/build/extlib/CMakeFiles/progress.marks
-	cd /home/zachary/projects/bloomfilter/build && $(MAKE) -f CMakeFiles/Makefile2 extlib/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zachary/projects/bloomfilter/build/CMakeFiles 0
+	cd /home/zachary/Documents/Projects/bloomfilter/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/zachary/Documents/Projects/bloomfilter/build/CMakeFiles /home/zachary/Documents/Projects/bloomfilter/build/extlib/CMakeFiles/progress.marks
+	cd /home/zachary/Documents/Projects/bloomfilter/build && $(MAKE) -f CMakeFiles/Makefile2 extlib/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zachary/Documents/Projects/bloomfilter/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/zachary/projects/bloomfilter/build && $(MAKE) -f CMakeFiles/Makefile2 extlib/clean
+	cd /home/zachary/Documents/Projects/bloomfilter/build && $(MAKE) -f CMakeFiles/Makefile2 extlib/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,17 +143,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/zachary/projects/bloomfilter/build && $(MAKE) -f CMakeFiles/Makefile2 extlib/preinstall
+	cd /home/zachary/Documents/Projects/bloomfilter/build && $(MAKE) -f CMakeFiles/Makefile2 extlib/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/zachary/projects/bloomfilter/build && $(MAKE) -f CMakeFiles/Makefile2 extlib/preinstall
+	cd /home/zachary/Documents/Projects/bloomfilter/build && $(MAKE) -f CMakeFiles/Makefile2 extlib/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/zachary/projects/bloomfilter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/zachary/Documents/Projects/bloomfilter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -179,6 +179,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/zachary/projects/bloomfilter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/zachary/Documents/Projects/bloomfilter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

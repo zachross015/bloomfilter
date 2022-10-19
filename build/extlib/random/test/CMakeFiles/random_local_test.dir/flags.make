@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11   -Wall -Wextra -Werror -Wshadow -Wnon-virtual-dtor -ped
 
 CXX_DEFINES = -DRANDOM_LOCAL
 
-CXX_INCLUDES = -I/home/zachary/projects/bloomfilter/extlib/random/test/../include -I/home/zachary/projects/bloomfilter/extlib/random/test 
+CXX_INCLUDES = -I/home/zachary/Documents/Projects/bloomfilter/extlib/random/test/../include -I/home/zachary/Documents/Projects/bloomfilter/extlib/random/test 
 

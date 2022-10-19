@@ -62,7 +62,7 @@ class sfold : public hash {
                 mult *= seed;
             }
         }
-        return sum;
+        return sum + 1;
     }
 
     public:

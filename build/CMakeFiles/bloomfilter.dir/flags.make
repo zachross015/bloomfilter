@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/zachary/projects/bloomfilter/extlib/random/include 
+CXX_INCLUDES = -I/home/zachary/Documents/Projects/bloomfilter/extlib/random/include 
 

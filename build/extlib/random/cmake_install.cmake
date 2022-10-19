@@ -1,4 +1,4 @@
-# Install script for directory: /home/zachary/projects/bloomfilter/extlib/random
+# Install script for directory: /home/zachary/Documents/Projects/bloomfilter/extlib/random
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,14 +38,14 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/zachary/projects/bloomfilter/extlib/random/include/effolkronium")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/zachary/Documents/Projects/bloomfilter/extlib/random/include/effolkronium")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/cmake/effolkronium_randomTargets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/cmake/effolkronium_randomTargets.cmake"
-         "/home/zachary/projects/bloomfilter/build/extlib/random/CMakeFiles/Export/cmake/effolkronium_randomTargets.cmake")
+         "/home/zachary/Documents/Projects/bloomfilter/build/extlib/random/CMakeFiles/Export/cmake/effolkronium_randomTargets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/cmake/effolkronium_randomTargets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -54,19 +54,19 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/cmake" TYPE FILE FILES "/home/zachary/projects/bloomfilter/build/extlib/random/CMakeFiles/Export/cmake/effolkronium_randomTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/cmake" TYPE FILE FILES "/home/zachary/Documents/Projects/bloomfilter/build/extlib/random/CMakeFiles/Export/cmake/effolkronium_randomTargets.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/cmake" TYPE FILE FILES
-    "/home/zachary/projects/bloomfilter/build/extlib/random/effolkronium_randomConfig.cmake"
-    "/home/zachary/projects/bloomfilter/build/extlib/random/effolkronium_randomConfigVersion.cmake"
+    "/home/zachary/Documents/Projects/bloomfilter/build/extlib/random/effolkronium_randomConfig.cmake"
+    "/home/zachary/Documents/Projects/bloomfilter/build/extlib/random/effolkronium_randomConfigVersion.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/zachary/projects/bloomfilter/build/extlib/random/test/cmake_install.cmake")
+  include("/home/zachary/Documents/Projects/bloomfilter/build/extlib/random/test/cmake_install.cmake")
 
 endif()
 

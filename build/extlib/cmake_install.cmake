@@ -1,4 +1,4 @@
-# Install script for directory: /home/zachary/projects/bloomfilter/extlib
+# Install script for directory: /home/zachary/Documents/Projects/bloomfilter/extlib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,6 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/zachary/projects/bloomfilter/build/extlib/random/cmake_install.cmake")
+  include("/home/zachary/Documents/Projects/bloomfilter/build/extlib/random/cmake_install.cmake")
 endif()
 
